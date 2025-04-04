@@ -1,7 +1,9 @@
 #include <iostream>
 #include <unordered_map>
 #include <string>
-#include "auth.cpp" 
+#include <fstream>
+#include "auth.cpp"
+#include "account-manager.cpp"
 
 using namespace std;
 
@@ -19,6 +21,9 @@ int main()
     if (authenticate(users, account, pin))
     {
         cout << "Authentication successful!\n";
+        double balance = getBalance(users, account);
+        cout << "Account: " << account << " Balance: " << balance;
+
     }
     else
     {
