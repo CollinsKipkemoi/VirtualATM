@@ -3,6 +3,7 @@
 #include <string>
 #include <fstream>
 #include "auth.cpp"
+#include "account-manager.cpp"
 
 using namespace std;
 
@@ -29,6 +30,9 @@ int main()
     if (users.find(account) != users.end() && get<0>(users[account]) == pin)
     {
         cout << "Authentication successful!\n";
+        double balance = getBalance(users, account);
+        cout << "Account: " << account << " Balance: " << balance;
+
     }
     else
     {

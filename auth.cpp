@@ -24,8 +24,8 @@ unordered_map<string, tuple<string, double, string>> loadUsers(const string &fil
     return users;
 }
 
-bool authenticate(const unordered_map<string, string> &users, const string &account, const string &pin)
+bool authenticate(const unordered_map<string, tuple<string, double, string>> &users, const string &account, const string &pin)
 {
     auto it = users.find(account);
-    return it != users.end() && it->second == pin;
+    return it != users.end() && get<0>(it->second) == pin;
 }
