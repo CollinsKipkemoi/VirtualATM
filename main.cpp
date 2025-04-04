@@ -1,9 +1,19 @@
 #include <iostream>
 #include <unordered_map>
 #include <string>
-#include "auth.cpp" 
+#include <fstream>
+#include "auth.cpp"
 
 using namespace std;
+
+void saveUsers(const string &filename, const unordered_map<string, tuple<string, double, string>> &users)
+{
+    ofstream file(filename);
+    for (const auto &user : users)
+    {
+        file << user.first << " " << get<0>(user.second) << " " << get<1>(user.second) << " " << get<2>(user.second) << "\n";
+    }
+}
 
 int main()
 {
@@ -16,7 +26,7 @@ int main()
     cout << "Enter PIN: ";
     cin >> pin;
 
-    if (authenticate(users, account, pin))
+    if (users.find(account) != users.end() && get<0>(users[account]) == pin)
     {
         cout << "Authentication successful!\n";
     }
