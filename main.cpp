@@ -31,8 +31,58 @@ int main()
     {
         cout << "Authentication successful!\n";
         double balance = getBalance(users, account);
-        cout << "Account: " << account << " Balance: " << balance;
+        cout << "Account: " << account << " Balance: " << balance << endl;
 
+        // Operations
+        int choice;
+        double amount;
+        do {
+            cout << "\n********** ATM **********\n";
+            cout << "1. Check Balance\n";
+            cout << "2. Deposit\n";
+            cout << "3. Withdraw\n";
+            cout << "4. Exit\n";
+            cout << "Enter your choice: ";
+            cin >> choice;
+
+            try {
+                switch (choice) {
+                    case 1:
+                        cout << "Current balance: " << balance << endl;
+                        break;
+                    case 2:
+                        cout << "Enter amount to deposit: ";
+                        cin >> amount;
+                        if (amount <= 0) {
+                            cout << "Invalid amount. Please enter a positive number." << endl;
+                            break;
+                        }
+                        balance = deposit(users, account, amount);
+                        cout << "Deposit successful. New balance: " << balance << endl;
+                        saveUsers(filename, users);  // Save changes to file
+                        break;
+                    case 3:
+                        cout << "Enter amount to withdraw: ";
+                        cin >> amount;
+                        if (amount <= 0) {
+                            cout << "Invalid amount. Please enter a positive number." << endl;
+                            break;
+                        }
+                        balance = withdraw(users, account, amount);
+                        cout << "Withdrawal successful. New balance: " << balance << endl;
+                        saveUsers(filename, users);  // Save changes to file
+                        break;
+                    case 4:
+                        cout << "Thank you for using our ATM. Goodbye!" << endl;
+                        break;
+                    default:
+                        cout << "Invalid choice. Please try again." << endl;
+                        break;
+                }
+            } catch (const runtime_error& e) {
+                cout << "Error: " << e.what() << endl;
+            }
+        } while (choice != 4);
     }
     else
     {
